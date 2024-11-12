@@ -10,7 +10,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 public abstract class HttpHandlerTemplate implements HttpHandler {
-	
+
 	protected String readRequestBody(HttpExchange exchange) throws IOException {
 		InputStream inputStream = exchange.getRequestBody();
 		StringBuilder response = new StringBuilder();

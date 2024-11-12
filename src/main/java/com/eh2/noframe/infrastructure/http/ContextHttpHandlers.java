@@ -15,13 +15,20 @@ public class ContextHttpHandlers {
 
 	private static final String API_BOOK_CONTEXT = "/api/book";
 
-	public Map<String, HttpHandler> build() {
+	private Map<String, HttpHandler> contextHandlresMap;
+
+	public Map<String, HttpHandler> getContextHandlresMap() {
+		return contextHandlresMap;
+	}
+
+	public ContextHttpHandlers buildContextHandlresMap() {
 		BookController_HttpHandler_Link bookControllerLink = new BookController_HttpHandler_Link(
 				new BookController(new BookBusinessServiceImpl(new BookRepositoryImpl()), new BookMapper()),
 				API_BOOK_CONTEXT, new ObjectMapper());
 
-		return Map.of(API_BOOK_CONTEXT, new BookHttpHandler(
+		contextHandlresMap = Map.of(API_BOOK_CONTEXT, new BookHttpHandler(
 				Map.of("POST", bookControllerLink::createBook, "GET", bookControllerLink::retrieveBook)));
+		return this;
 	}
 
 }

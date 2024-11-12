@@ -17,7 +17,6 @@ public class BookEntity implements Cloneable {
 
 	private void setId(String id) {
 		this.id = id;
-
 	}
 
 	public BookEntity generateWithId(String id) throws CloneNotSupportedException {

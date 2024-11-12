@@ -28,8 +28,7 @@ public class BookController_HttpHandler_Link {
 
 	public String createBook(URI uri, String body) throws IOException {
 		logger.info("Init createBook(HttpExchange httpExchange)");
-		CreateBookRequestDTO createBookRequestDTO;
-		createBookRequestDTO = objectMapper.readValue(body, CreateBookRequestDTO.class);
+		CreateBookRequestDTO createBookRequestDTO = objectMapper.readValue(body, CreateBookRequestDTO.class);
 		BookResponseDTO bookResponseDTO = bookController.createBook(createBookRequestDTO);
 		String responseJson = objectMapper.writeValueAsString(bookResponseDTO);
 		return responseJson;

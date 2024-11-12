@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.eh2.noframe.infrastructure.Config;
 import com.eh2.noframe.infrastructure.app.builder.App;
 import com.eh2.noframe.infrastructure.db.H2Init;
-import com.eh2.noframe.infrastructure.http.ContextHttpHandlers;
 
 public class Main {
 	private static String APPLICATION_PROPERTIES_FILE = "application.properties";
@@ -14,7 +13,7 @@ public class Main {
 		H2Init.main(args);
 		Config config = new Config(APPLICATION_PROPERTIES_FILE);
 
-		App app = new App.AppBuilder().httpServer(config).addContexts(new ContextHttpHandlers().build()).build();
+		App app = new App.AppBuilder(config).httpServer().contexts().build();
 		app.start();
 	}
 

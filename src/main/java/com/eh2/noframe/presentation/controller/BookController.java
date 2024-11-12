@@ -27,9 +27,8 @@ public class BookController {
 		try {
 			return bookMapper.toBookResponseDTO(bookBusinessService.createBook(bookMapper.toBookEntity(bookDTO)));
 		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 
 	public BookResponseDTO retriveBook(String id) {

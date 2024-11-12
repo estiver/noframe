@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 
 import com.eh2.noframe.infrastructure.Config;
+import com.eh2.noframe.infrastructure.http.ContextHttpHandlers;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
@@ -18,8 +19,14 @@ public class App {
 
 	public static class AppBuilder {
 		private HttpServer httpServer = null;
+		private Config config;
 
-		public AppBuilder httpServer(Config config) throws IOException {
+		public AppBuilder(Config config) {
+			super();
+			this.config = config;
+		}
+
+		public AppBuilder httpServer() throws IOException {
 			HttpServer httpServer = HttpServer.create(new InetSocketAddress(config.getHttpserverPort()), 0);
 			httpServer.setExecutor(Executors.newFixedThreadPool(config.getHttpServerExecutorNThreads()));
 
@@ -27,13 +34,10 @@ public class App {
 			return this;
 		}
 
-		public AppBuilder addContext(String path, HttpHandler httpHandler) {
-			httpServer.createContext(path, httpHandler);
-			return this;
-		}
-
-		public AppBuilder addContexts(Map<String, HttpHandler> contextHandlers) {
-			for (Map.Entry<String, HttpHandler> entry : contextHandlers.entrySet()) {
+		public AppBuilder contexts() {
+			Map<String, HttpHandler> contextHandlersMap = new ContextHttpHandlers().buildContextHandlresMap()
+					.getContextHandlresMap();
+			for (Map.Entry<String, HttpHandler> entry : contextHandlersMap.entrySet()) {
 				httpServer.createContext(entry.getKey(), entry.getValue());
 			}
 			return this;
