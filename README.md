@@ -1,2 +1,2 @@
 # noframe
-A project using just core java and libs
+A project using only Java and basic libraries
