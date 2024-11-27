@@ -17,9 +17,9 @@ public class BookHttpHandler extends HttpHandlerTemplate {
 
 	private static final Logger logger = LoggerFactory.getLogger(HttpHandler.class);
 
-	private final Map<String, ExceptionalBiFunction<URI, String, String>> routeHandlers;
+	private final Map<String, ExceptionalBiFunction<URI, String, HandlerResponse>> routeHandlers;
 
-	public BookHttpHandler(Map<String, ExceptionalBiFunction<URI, String, String>> routeHandlers) {
+	public BookHttpHandler(Map<String, ExceptionalBiFunction<URI, String, HandlerResponse>> routeHandlers) {
 		this.routeHandlers = routeHandlers;
 	}
 
@@ -31,12 +31,12 @@ public class BookHttpHandler extends HttpHandlerTemplate {
 			URI uri = httpExchange.getRequestURI();
 			String body = readRequestBody(httpExchange);
 
-			String result = handler.apply(uri, body);
+			HandlerResponse result = handler.apply(uri, body);
 
 			httpExchange.getResponseHeaders().set("Content-Type", "application/json");
-			httpExchange.sendResponseHeaders(200, result.getBytes().length);
+			httpExchange.sendResponseHeaders(200, result.getBody().getBytes().length);
 			OutputStream responseBody = httpExchange.getResponseBody();
-			responseBody.write(result.getBytes());
+			responseBody.write(result.getBody().getBytes());
 			responseBody.close();
 		} catch (Exception e) {
 			httpExchange.sendResponseHeaders(500, 0);

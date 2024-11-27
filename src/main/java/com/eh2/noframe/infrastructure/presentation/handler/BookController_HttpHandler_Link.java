@@ -26,20 +26,20 @@ public class BookController_HttpHandler_Link {
 		this.objectMapper = objectMapper;
 	}
 
-	public String createBook(URI uri, String body) throws IOException {
+	public HandlerResponse createBook(URI uri, String body) throws IOException {
 		logger.info("Init createBook(HttpExchange httpExchange)");
 		CreateBookRequestDTO createBookRequestDTO = objectMapper.readValue(body, CreateBookRequestDTO.class);
 		BookResponseDTO bookResponseDTO = bookController.createBook(createBookRequestDTO);
 		String responseJson = objectMapper.writeValueAsString(bookResponseDTO);
-		return responseJson;
+		return new HandlerResponse(200, responseJson, null);
 	}
 
-	public String retrieveBook(URI uri, String body) throws IOException {
+	public HandlerResponse retrieveBook(URI uri, String body) throws IOException {
 		logger.info("Init retrieveBook(HttpExchange httpExchange)");
 		String id = uri.toString().replaceAll(contextToGET, "");
 		BookResponseDTO bookResponseDTO = bookController.retriveBook(id);
 		String responseJson = objectMapper.writeValueAsString(bookResponseDTO);
-		return responseJson;
+		return new HandlerResponse(200, responseJson, null);
 
 	}
 }
