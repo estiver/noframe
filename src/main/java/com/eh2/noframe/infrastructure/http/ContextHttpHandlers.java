@@ -27,7 +27,8 @@ public class ContextHttpHandlers {
 				API_BOOK_CONTEXT, new ObjectMapper());
 
 		contextHandlresMap = Map.of(API_BOOK_CONTEXT, new BookHttpHandler(
-				Map.of("POST", bookControllerLink::createBook, "GET", bookControllerLink::retrieveBook)));
+				Map.of("POST", bookControllerLink::createBook, 
+						"GET", bookControllerLink::retrieveBook)));
 		return this;
 	}
 

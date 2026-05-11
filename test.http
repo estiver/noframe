@@ -1,0 +1,12 @@
+###
+POST http://localhost:8000/api/book/
+Content-Type: application/json
+
+{
+  "title": "clean code"
+}
+
+###
+
+GET http://localhost:8000/api/book/07cc6a6b-1444-48b1-aef9-bacefe4f6acc
+Content-Type: application/json
