@@ -16,10 +16,6 @@ public class H2Init {
 
 		Path path = Paths.get(scriptUrl.toURI());
 		
-		if (scriptUrl == null) {
-			System.out.println("Script file not found!");
-			return;
-		}
 		try (Connection conn = DBConnection.getConnection()) {
 			try (Statement st = conn.createStatement()) {
 				st.execute("RUNSCRIPT FROM '" +path.toString() + "'");
