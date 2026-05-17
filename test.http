@@ -8,5 +8,5 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8000/api/book/07cc6a6b-1444-48b1-aef9-bacefe4f6acc
+GET http://localhost:8000/api/book/c6757b8e-78ea-4a97-9207-276d6024680d
 Content-Type: application/json
